@@ -58,23 +58,28 @@ fi
 
 # main functionality
 
+# retrieving current IP address, if it's the same of Home profile
 C=`ifconfig|grep "$HOME_IP"|wc -l|awk '{print $1}'`
 
+# Home profile variables
 R="Home"
 N=$HOME_NAME
 P=$HOME_PATH
 T=$HOME_TYPE
 if [ "$C" == "0" ]; then
+	# Work profile variables
 	R="Work"
 	N=$WORK_NAME
 	P=$WORK_PATH
 	T=$WORK_TYPE
 fi
 
+# checking if a change is really needed
 CURRENT=`defaults -currentHost read com.apple.screensaver|grep moduleName|awk -F'= ' '{print $2}'|sed -e 's/;//g'`
 if [ "$CURRENT" == "$N" ]; then
 	exit
 fi
 
-echo "Setting $R screensaver profile"
+# setting the new screen saver profile
+echo "Setting $R screen saver profile"
 defaults -currentHost write com.apple.screensaver moduleDict -dict moduleName "$N" path "$P" type -int $T
