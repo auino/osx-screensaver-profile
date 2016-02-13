@@ -1,14 +1,31 @@
 #!/bin/bash
 
+# 
+# osx-screensaver-profile
+# Author: Enrico Cambiaso
+# Email: enrico.cambiaso[at]gmail.com
+# GitHub project URL: https://github.com/auino/osx-screensaver-profile
+# 
+
+# --- --- --- --- ---
+# CONFIGURATION BEGIN
+# --- --- --- --- ---
+
+# Home profile configuration
 HOME_IP="192.168."
 HOME_NAME="Flurry"
 HOME_PATH="/System/Library/Screen\ Savers/Flurry.saver"
 HOME_TYPE=0
 
+# Work profile configuration
 WORK_IP="10.16."
 WORK_NAME="Aerial"
 WORK_PATH="/Users/auino/Library/Screen Savers/Aerial.saver"
 WORK_TYPE=0
+
+# --- --- --- --- ---
+#  CONFIGURATION END 
+# --- --- --- --- ---
 
 # returning information of current screensaver
 if [ "$1" == "-c" ]; then
