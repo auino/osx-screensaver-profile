@@ -42,6 +42,15 @@ In another scenario, your home network is not fast enough to support live stream
 
 ### Configuration ###
 
+Following information are required:
+ * `HOME_IP` and `WORK_IP` identify the computer IP address when connected at home or work
+
+   IP addresses are needed in order to distinguish between the two scenarios.
+   It is possible to specify a portion of the IP address, such as `192.168.`, representing the address range `192.168.0.0/16`.
+   To identify the current IP address, use the `ifconfig` command or use OS X settings.
+
+ * `HOME_NAME` and `WORK_NAME` identify the screen saver name adopted for the considered scenario
+
 TODO
 
 ### Contacts ###
