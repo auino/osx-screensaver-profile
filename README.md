@@ -51,7 +51,29 @@ Following information are required:
 
  * `HOME_NAME` and `WORK_NAME` identify the screen saver name adopted for the considered scenario
 
-TODO
+   It is possible to retrieve a list of names of available screen savers by running the following command:
+
+   ```
+   sh osx-screensaver-profile.sh -n
+   ```
+
+ * `HOME_PATH` and `WORK_PATH` identify the screen saver path adopted for the considered scenario
+
+   It is possible to retrieve a list of paths of available screen savers by running the following command:
+
+   ```
+   sh osx-screensaver-profile.sh -p
+   ```
+
+ * `HOME_TYPE` and `WORK_TYPE` identify the adopted screen saver type.
+
+The program also provides current configuration through the following command:
+
+```
+sh osx-screensaver-profile.sh -c
+```
+
+This option may be useful to properly copy settings of already configured screen savers.
 
 ### Contacts ###
 
