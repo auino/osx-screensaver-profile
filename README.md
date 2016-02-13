@@ -17,9 +17,30 @@ In another scenario, your home network is not fast enough to support live stream
     git clone https://github.com/auino/osx-screensaver-profile.git
     ```
 
- 2. TODO
+ 2. Configure the script, by opening it and setting configuration data as preferred (see Configuration section for more information)
+ 3. Optionally, you can test the correct working of the script, by opening the Terminal app and running the following command:
 
-### Available Commands ###
+    ```
+    sh osx-screensaver-profile.sh
+    ```
+
+ 4. Put the script on your crontab, by opening the Terminal app and running the following command:
+
+    ```
+    crontab -e
+    ```
+
+ 5. Now you have to append the following line (press `i` button to insert data):
+
+    ```
+    0 * * * * sh /directory_path/osx-screensaver-profile.sh
+    ```
+
+    where `/directory_path/` identifies the path of the directory containing the script, while `0` specifies the program has to be called every hour.
+ 6. Hit `:q` to close, saving the file
+ 7. Enjoy!
+
+### Configuration ###
 
 TODO
 
