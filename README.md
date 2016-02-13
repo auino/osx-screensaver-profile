@@ -17,7 +17,7 @@ In another scenario, your home network is not fast enough to support live stream
     git clone https://github.com/auino/osx-screensaver-profile.git
     ```
 
- 2. Configure the script, by opening it and setting configuration data as preferred (see [Configuration section](https://github.com/auino/osx-screensaver-profile#configuration) for more information)
+ 2. Configure the script, by opening it and setting configuration data as preferred (see [Configuration section](#configuration) for more information)
  3. Optionally, you can test the correct working of the script, by opening the Terminal app and running the following command:
 
     ```
