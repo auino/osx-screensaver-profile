@@ -54,5 +54,10 @@ if [ "$C" == "0" ]; then
 	T=$WORK_TYPE
 fi
 
+CURRENT=`defaults -currentHost read com.apple.screensaver|grep moduleName|awk -F'= ' '{print $2}'|sed -e 's/;//g'`
+if [ "$CURRENT" == "$N" ]; then
+	exit
+fi
+
 echo "Setting $R screensaver profile"
 defaults -currentHost write com.apple.screensaver moduleDict -dict moduleName "$N" path "$P" type -int $T
