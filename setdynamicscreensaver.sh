@@ -20,7 +20,7 @@ HOME_TYPE=0
 # Work profile configuration
 WORK_IP="10.16."
 WORK_NAME="Aerial"
-WORK_PATH="/Users/auino/Library/Screen Savers/Aerial.saver"
+WORK_PATH="$HOME/Library/Screen Savers/Aerial.saver"
 WORK_TYPE=0
 
 # --- --- --- --- ---
