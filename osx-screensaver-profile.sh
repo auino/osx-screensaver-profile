@@ -25,6 +25,7 @@ WORK_TYPE=0
 
 # Other configuration
 VERBOSE=1
+VERBOSE_LOGFILE="/tmp/osxscreensaverprofile.log"
 
 # --- --- --- --- ---
 #  CONFIGURATION END 
@@ -39,14 +40,14 @@ fi
 # returning a list of available screensaver names
 if [ "$1" == "-n" ]; then
 	# globally available screensavers
-	ls /System/Library/Screen\ Savers/ > /tmp/osxdynamicscreensaver.txt
+	ls /System/Library/Screen\ Savers/ > /tmp/osxscreensaverprofile.txt
 	# screensavers available only for current user
-	ls ~/Library/Screen\ Savers/ >> /tmp/osxdynamicscreensaver.txt
+	ls ~/Library/Screen\ Savers/ >> /tmp/osxscreensaverprofile.txt
 	# listing retrieved screensavers
 	while read L; do
 		L=`echo $L|awk -F. '{print $1}'`
 		echo $L
-	done < /tmp/osxdynamicscreensaver.txt
+	done < /tmp/osxscreensaverprofile.txt
 	exit
 fi
 
@@ -68,7 +69,7 @@ P=""
 T=""
 
 # retrieving current IP address, if it's the same of Home profile
-C=`ifconfig|grep "$HOME_IP"|wc -l|awk '{print $1}'`
+C=`/sbin/ifconfig|grep "$HOME_IP"|wc -l|awk '{print $1}'`
 if [ "$C" != "0" ]; then
 	R="Home"
 	N=$HOME_NAME
@@ -77,7 +78,7 @@ if [ "$C" != "0" ]; then
 fi
 
 # retrieving current IP address, if it's the same of Work profile
-C=`ifconfig|grep "$WORK_IP"|wc -l|awk '{print $1}'`
+C=`/sbin/ifconfig|grep "$WORK_IP"|wc -l|awk '{print $1}'`
 if [ "$C" != "0" ]; then
 	R="Work"
 	N=$WORK_NAME
@@ -88,7 +89,7 @@ fi
 # checking if a Home or Work profile should be used
 if [ "$R" == "" ]; then
 	if [ $VERBOSE -gt 0 ]; then
-		echo "No profile is assigned to current scenario"
+		echo "No profile is assigned to current scenario" >> $VERBOSE_LOGFILE
 	fi
 	exit
 fi
@@ -97,13 +98,13 @@ fi
 CURRENT=`defaults -currentHost read com.apple.screensaver|grep moduleName|awk -F'= ' '{print $2}'|sed -e 's/;//g'`
 if [ "$CURRENT" == "$N" ]; then
 	if [ $VERBOSE -gt 0 ]; then
-		echo "Screen saver change is not needed"
+		echo "Screen saver change is not needed" >> $VERBOSE_LOGFILE
 	fi
 	exit
 fi
 
 # setting the new screen saver profile
 if [ $VERBOSE -gt 0 ]; then
-	echo "Setting $R screen saver profile"
+	echo "Setting $R screen saver profile" >> $VERBOSE_LOGFILE
 fi
 defaults -currentHost write com.apple.screensaver moduleDict -dict moduleName "$N" path "$P" type -int $T
