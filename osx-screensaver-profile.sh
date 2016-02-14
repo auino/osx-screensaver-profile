@@ -23,6 +23,9 @@ WORK_NAME="Aerial"
 WORK_PATH="$HOME/Library/Screen Savers/Aerial.saver"
 WORK_TYPE=0
 
+# Other configuration
+VERBOSE=1
+
 # --- --- --- --- ---
 #  CONFIGURATION END 
 # --- --- --- --- ---
@@ -56,30 +59,51 @@ if [ "$1" == "-p" ]; then
 	exit
 fi
 
-# main functionality
+# main screen saver change functionality
+
+# Default/null profile variables
+R=""
+N=""
+P=""
+T=""
 
 # retrieving current IP address, if it's the same of Home profile
 C=`ifconfig|grep "$HOME_IP"|wc -l|awk '{print $1}'`
+if [ "$C" != "0" ]; then
+	R="Home"
+	N=$HOME_NAME
+	P=$HOME_PATH
+	T=$HOME_TYPE
+fi
 
-# Home profile variables
-R="Home"
-N=$HOME_NAME
-P=$HOME_PATH
-T=$HOME_TYPE
-if [ "$C" == "0" ]; then
-	# Work profile variables
+# retrieving current IP address, if it's the same of Work profile
+C=`ifconfig|grep "$WORK_IP"|wc -l|awk '{print $1}'`
+if [ "$C" != "0" ]; then
 	R="Work"
 	N=$WORK_NAME
 	P=$WORK_PATH
 	T=$WORK_TYPE
 fi
 
+# checking if a Home or Work profile should be used
+if [ "$R" == "" ]; then
+	if [ $VERBOSE -gt 0 ]; then
+		echo "No profile is assigned to current scenario"
+	fi
+	exit
+fi
+
 # checking if a change is really needed
 CURRENT=`defaults -currentHost read com.apple.screensaver|grep moduleName|awk -F'= ' '{print $2}'|sed -e 's/;//g'`
 if [ "$CURRENT" == "$N" ]; then
+	if [ $VERBOSE -gt 0 ]; then
+		echo "Screen saver change is not needed"
+	fi
 	exit
 fi
 
 # setting the new screen saver profile
-echo "Setting $R screen saver profile"
+if [ $VERBOSE -gt 0 ]; then
+	echo "Setting $R screen saver profile"
+fi
 defaults -currentHost write com.apple.screensaver moduleDict -dict moduleName "$N" path "$P" type -int $T
